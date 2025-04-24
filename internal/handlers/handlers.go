@@ -49,7 +49,8 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	ext := filepath.Ext(header.Filename)
 	filename := fmt.Sprintf("converted_%s%s", strings.ReplaceAll(time.Now().UTC().Format(time.RFC3339), ":", "-"), ext)
 
-	outFile, err := os.Create(filepath.Join("../logs", filename))
+	outFile, err := os.Create(filepath.Join(".", filename))
+
 	if err != nil {
 		http.Error(w, "Не удалось создать файл", http.StatusInternalServerError)
 		return
