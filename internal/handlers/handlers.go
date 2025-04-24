@@ -14,6 +14,8 @@ import (
 
 // ServeHome обрабатывает корневой эндпоинт и отдает index.html
 func ServeHome(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.WriteHeader(http.StatusOK)
 	http.ServeFile(w, r, "../index.html")
 }
 
@@ -62,4 +64,5 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 	// Возвращаем пользователю результат
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	_, _ = w.Write([]byte(converted))
+	w.WriteHeader(http.StatusOK)
 }
