@@ -8,18 +8,16 @@ import (
 )
 
 func isMorse(input string) bool {
-	for _, ch := range input {
-		if ch != '.' && ch != '-' && ch != ' ' && ch != '/' {
-			return false
-		}
+	isInvalid := func(r rune) bool {
+		return !strings.ContainsRune(".-/ ", r)
 	}
-	return true
+	return !strings.ContainsFunc(input, isInvalid)
 }
 
 func Convert(input string) (string, error) {
 	input = strings.TrimSpace(input)
 	if input == "" {
-		return "", errors.New("входная строка пуста")
+		return "", morse.ErrNoEncoding{}
 	}
 
 	if isMorse(input) {
@@ -29,6 +27,8 @@ func Convert(input string) (string, error) {
 		}
 		return result, nil
 	}
+
+	// Проверка: все ли руны в тексте — буквы, цифры или знаки препинания
 
 	result := morse.ToMorse(input)
 	if strings.TrimSpace(result) == "" {

@@ -14,7 +14,7 @@ import (
 
 // ServeHome обрабатывает корневой эндпоинт и отдает index.html
 func ServeHome(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "index.html")
+	http.ServeFile(w, r, "../index.html")
 }
 
 // UploadHandler обрабатывает загрузку файла
